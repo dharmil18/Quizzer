@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- For Windows 8/10 tiles -->
+    <meta name="msapplication-TileImage" content="../favicon_io/ms-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="form-left">
+            <h2 class="text-uppercase">Welcome to Sneakerzz</h2>
+            <p>
+                Welcome to our sneaker store! We are thrilled to have you here and excited to help you find the perfect pair of sneakers. Our store is the best place to find every and any kind of sneakers you're looking for.
+                <br><br>
+                Join our sneaker community today! Sign up now and be the first to know about our new arrivals and exclusive offers.
+            </p>
+            <p class="text">
+                <span>PS 😜:</span>
+                Get 10% on your first order after signing up!
+            </p>
+            <div class="form-field">
+                <a href="{{ url_for('login') }}"><input type="submit" class="account" value="Have an Account?"></a>
+            </div>
+        </div>
+        <form class="form-right"  action="{{ url_for('register') }}" method="POST">
+            <h2 class="text-uppercase">Sign Up</h2>
+            <div class="row">
+                <div class="col-sm-6 mb-3">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" id="first_name" class="input-field" value="{{ request.form.get('first_name', '') }}">
+                    <div id="first_name_error" class="error">{{ first_name_error }}</div>
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" id="last_name" class="input-field" value="{{ request.form.get('last_name', '') }}">
+                    <div id="last_name_error" class="error">{{ last_name_error }}</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label>Your Email</label>
+                <input type="text" class="input-field" name="email" id="email" value="{{ request.form.get('email', '') }}">
+                <div id="email_error" class="error">{{ email_error }}</div>
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" class="input-field" name="password" id="password" value="{{ request.form.get('password', '') }}">
+                <div id="password_error" class="error">{{ password_error }}</div>
+            </div>
+
+            <div class="mb-3">
+                <div id="db_error" class="error">{{ db_error }}</div>
+            </div>
+            <div class="form-field">
+                <input type="submit" value="Register" class="register" name="register">
+            </div>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+</body>
+</html>
