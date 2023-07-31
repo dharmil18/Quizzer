@@ -12,6 +12,14 @@ def hello_world():  # put application's code here
     return 'Hello World!'
 
 
+@app.route('/home')
+def home():
+    if 'email' in session:
+        return render_template('home.html', email=session['email'])
+    else:
+        return redirect('login')
+
+
 @app.route('/login', methods=['GET'])
 def login():
     return render_template('login.html')
@@ -111,7 +119,72 @@ def register():
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
-    return "Success"
+    if "email" in session:
+        return render_template('home.html', email=session['email'])
+    if request.method == 'POST':
+        # Perform form validation and display errors
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        email_regex = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+
+        email_error = ''
+        password_error = ''
+        db_error = ''
+
+        if not re.match(email_regex, email):
+            email_error = 'Please enter a valid email address.'
+
+        if password == '':
+            password_error = 'Please enter your password!'
+
+        if email_error or password_error:
+            # Pass errors and form data to the template
+            return render_template('login.html', email_error=email_error, password_error=password_error,
+                                   data=request.form)
+
+        else:
+            print('In else')
+            try:
+                user = db.getUserByEmail(email)
+                print(user)
+                if user is not None:
+                    dbPassword = user['password']
+
+                    if bcrypt.checkpw(password.encode('utf-8'), dbPassword):
+                        session['email'] = email
+                        return redirect('logged_in')
+                    else:
+                        db_error = 'Invalid username or password! Try again.'
+                        return render_template('login.html', db_error=db_error,
+                                               data=request.form)
+                else:
+                    db_error = 'Invalid username or password! Try again.'
+                    return render_template('login.html', db_error=db_error,
+                                           data=request.form)
+            except Exception:
+                db_error = "Something went wrong! Please try again later."
+                return render_template('login.html', db_error=db_error,
+                                       data=request.form)
+
+
+@app.route('/logged_in')
+def logged_in():
+    if 'email' in session:
+        email = session['email']
+        return render_template('home.html', email=email)
+
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route("/logout", methods=["POST", "GET"])
+def logout():
+    if "email" in session:
+        session.pop("email", None)
+        return render_template("login.html")
+    else:
+        return render_template('login.html')
 
 
 if __name__ == '__main__':

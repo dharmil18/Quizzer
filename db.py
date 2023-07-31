@@ -21,13 +21,18 @@ def existsByEmail(email):
 
 
 def registerUser(user):
-    db.users.insert_one(user)
+    records.insert_one(user)
     user = records.find_one({"email": user['email']})
 
     if user:
         return True
 
     return False
+
+
+def getUserByEmail(email):
+    return records.find_one({"email": email})
+
 
 # # Send a ping to confirm a successful connection
 # try:
