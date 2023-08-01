@@ -15,8 +15,8 @@
 
     <div class="quizzes">
         <h1>Quizzes Available</h1>
-        <a href="dc.html">DC Extended Universe</a>
-        <a href="marvel.html">Marvel Universe</a>
+        <a href="{{ url_for('quiz', universe='dc') }}">DC Extended Universe</a>
+        <a href="{{ url_for('quiz', universe='marvel') }}">Marvel Universe</a>
     </div>
 
 
