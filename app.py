@@ -1,6 +1,8 @@
 import re
 import bcrypt
 import db
+from flask import jsonify
+from bson import json_util
 from flask import Flask, render_template, request, redirect, session, url_for
 
 app = Flask(__name__)
@@ -24,51 +26,15 @@ def home():
         return redirect('login')
 
 
-# Function to fetch questions from MongoDB based on the universe
-def fetch_questions(universe):
-    # Implement your MongoDB query here to fetch questions based on the universe
-    # Return the list of questions
-    # For simplicity, let's return some sample questions
-    if universe == 'dc':
-        questions = [
-            {
-                "id": 1,
-                "question_text": "DC Question 1?",
-                "option_a": "Option A",
-                "option_b": "Option B",
-                "option_c": "Option C",
-                "option_d": "Option D",
-                "correct_option": "A"
-            },
-            # Add more DC questions
-        ]
-    elif universe == 'marvel':
-        questions = [
-            {
-                "id": 1,
-                "question_text": "Marvel Question 1?",
-                "option_a": "Option A",
-                "option_b": "Option B",
-                "option_c": "Option C",
-                "option_d": "Option D",
-                "correct_option": "B"
-            },
-            # Add more Marvel questions
-        ]
-    else:
-        # Handle the case when an invalid universe is provided
-        questions = []
-
-    return questions
-
-
 # Route to handle the quiz
 @app.route('/quiz')
 def quiz():
     universe = request.args.get('universe')
-    # questions = fetch_questions(universe)
-    # return render_template('quiz.html', questions=questions)
-    return render_template('quiz.html')
+    questions = db.fetchQuestions(universe)
+
+    questions = list(questions)
+
+    return render_template('quiz.html', questions=questions)
 
 
 @app.route('/login', methods=['GET'])

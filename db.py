@@ -9,6 +9,8 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 db = client.get_database('Cluster0')
 
 records = db.users
+dcQuiz = db.dc_quiz
+marvelQuiz = db.marvel_quiz
 
 
 def existsByEmail(email):
@@ -34,12 +36,11 @@ def getUserByEmail(email):
     return records.find_one({"email": email})
 
 
-# # Send a ping to confirm a successful connection
-# try:
-#     client.admin.command('ping')
-#     print("Pinged your deployment. You successfully connected to MongoDB!")
-# except Exception as e:
-#     print(e)
+def fetchQuestions(universe):
+    if universe == 'dc':
+        return dcQuiz.find()
+    else:
+        return marvelQuiz.find()
 
 
 '''
