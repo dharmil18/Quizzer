@@ -1,14 +1,18 @@
 import re
 import bcrypt
 import db
-from flask import jsonify
-from bson import json_util
+import json
+import logging
+import random
 from flask import Flask, render_template, request, redirect, session, url_for
 
 app = Flask(__name__)
 app.secret_key = 'sdakjndsahjgbdhgjvdhjvdjdsjkndasjbkjbkdhad'
 
 user_logged_in = False
+
+# Configure the logging
+logging.basicConfig(level=logging.DEBUG)
 
 
 @app.route('/')
@@ -33,8 +37,10 @@ def quiz():
     questions = db.fetchQuestions(universe)
 
     questions = list(questions)
+    random_questions = random.sample(questions, 5)
+    json_data = json.dumps(random_questions)
 
-    return render_template('quiz.html', questions=questions)
+    return render_template('quiz.html', questions=json_data)
 
 
 @app.route('/login', methods=['GET'])

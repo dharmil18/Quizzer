@@ -9,6 +9,7 @@ let restart = document.getElementById("restart");
 let userScore = document.getElementById("user-score");
 let startScreen = document.querySelector(".start-screen");
 let startButton = document.getElementById("start-button");
+const homeButton = document.getElementById("home");
 let questionCount;
 let scoreCount = 0;
 let count = 11;
@@ -17,15 +18,21 @@ let countdown;
 let questionsDiv = document.getElementById('my-div');
 let questions = questionsDiv.getAttribute('questions');
 
-const quizArray = questions
-
+// console.log(questions)
+// const quizArray = questions
+const quizArray = JSON.parse(questions);
 console.log(quizArray)
+
+homeButton.addEventListener("click", () => {
+   window.location.href="/home";
+});
 
 //Restart Quiz
 restart.addEventListener("click", () => {
     initial();
     displayContainer.classList.remove("hide");
     scoreContainer.classList.add("hide");
+    homeButton.classList.add("hide");
 });
 
 //Next Button
@@ -35,7 +42,7 @@ nextBtn.addEventListener(
         //increment questionCount
         questionCount += 1;
         //if last question
-        if (questionCount == quizArray.length) {
+        if (questionCount === quizArray.length) {
             //hide question container and display score
             displayContainer.classList.add("hide");
             scoreContainer.classList.remove("hide");
@@ -60,7 +67,7 @@ const timerDisplay = () => {
     countdown = setInterval(() => {
         count--;
         timeLeft.innerHTML = `${count}s`;
-        if (count == 0) {
+        if (count === 0) {
             clearInterval(countdown);
             displayNext();
         }
@@ -81,11 +88,24 @@ const quizDisplay = (questionCount) => {
 //Quiz Creation
 function quizCreator() {
     //randomly sort questions
+    console.log(quizArray)
     quizArray.sort(() => Math.random() - 0.5);
+
     //generate quiz
     for (let i of quizArray) {
         //randomly sort options
-        i.options.sort(() => Math.random() - 0.5);
+        const options = [
+            i['option_a'],
+            i['option_b'],
+            i['option_c'],
+            i['option_d'],
+        ];
+        //i.options.sort(() => Math.random() - 0.5);
+        for (let j = options.length - 1; j > 0; j--) {
+            const k = Math.floor(Math.random() * (j + 1));
+            [options[j], options[k]] = [options[k], options[j]];
+        }
+
         //quiz card creation
         let div = document.createElement("div");
         div.classList.add("container-mid", "hide");
@@ -98,11 +118,11 @@ function quizCreator() {
         div.appendChild(question_DIV);
         //options
         div.innerHTML += `
-    <button class="option-div" onclick="checker(this)">${i.options[0]}</button>
-     <button class="option-div" onclick="checker(this)">${i.options[1]}</button>
-      <button class="option-div" onclick="checker(this)">${i.options[2]}</button>
-       <button class="option-div" onclick="checker(this)">${i.options[3]}</button>
-    `;
+            <button class="option-div" onclick="checker(this)">${options[0]}</button>
+            <button class="option-div" onclick="checker(this)">${options[1]}</button>
+            <button class="option-div" onclick="checker(this)">${options[2]}</button>
+            <button class="option-div" onclick="checker(this)">${options[3]}</button>
+        `;
         quizContainer.appendChild(div);
     }
 }
@@ -115,14 +135,14 @@ function checker(userOption) {
     let options = question.querySelectorAll(".option-div");
 
     //if user clicked answer == correct option stored in object
-    if (userSolution === quizArray[questionCount].correct) {
+    if (userSolution === quizArray[questionCount].correct_answer) {
         userOption.classList.add("correct");
         scoreCount++;
     } else {
         userOption.classList.add("incorrect");
         //For marking the correct option
         options.forEach((element) => {
-            if (element.innerText == quizArray[questionCount].correct) {
+            if (element.innerText === quizArray[questionCount].correct_answer) {
                 element.classList.add("correct");
             }
         });
