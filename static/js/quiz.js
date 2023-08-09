@@ -25,6 +25,7 @@ let questions = questionsDiv.getAttribute('questions');
 const quizArray = JSON.parse(questions);
 console.log(quizArray)
 
+
 function storeUserScore(email, universe, score) {
     $.ajax({
         type: "POST",
