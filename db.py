@@ -36,11 +36,25 @@ def getUserByEmail(email):
     return records.find_one({"email": email})
 
 
+def getUserScores(email):
+    return db.scores.find({"email": email})
+
+
 def fetchQuestions(universe):
     if universe == 'dc':
         return dcQuiz.find()
     else:
         return marvelQuiz.find()
+
+
+def storeUserScore(email, universe, score):
+    user_score = {
+        "email": email,
+        "universe": universe,
+        "score": score
+    }
+    db.scores.insert_one(user_score)
+    return True
 
 
 '''
@@ -294,4 +308,3 @@ Add questions for marvel here
 #
 #
 # addQuestions()
-

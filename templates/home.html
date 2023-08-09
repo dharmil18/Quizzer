@@ -10,46 +10,77 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Quizzer</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Quizzer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <span class="nav-link">Welcome {{ email }}</span>
-                    </li>
-                </ul>
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <span class="nav-link">Welcome {{ email }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Quizzes -->
+        <div class="col-lg-8">
+            <div class="quizzes">
+                <h1>Quizzes Available</h1>
+{#                <a href="{{ url_for('quiz', universe='dc', email=email) }}">DC Extended Universe</a>#}
+{#                <a href="{{ url_for('quiz', universe='marvel', email=email) }}">Marvel Universe</a>#}
+                <div class="quiz_container">
+                    <a href="{{ url_for('quiz', universe='dc', email=email) }}" alt="DC">
+                        <div class="card">
+                            <div class="wrapper">
+                                <img src="https://cdn.wallpapersafari.com/36/65/JRvO27.jpg"
+                                     class="cover-image" alt=""/>
+                            </div>
+                            <img src="https://wallpapercave.com/dwp1x/wp2319913.jpg"
+                                 class="title" alt=""/>
+                            <img src="https://c4.wallpaperflare.com/wallpaper/450/574/539/comics-justice-league-batman-bruce-wayne-wallpaper-preview.jpg"
+                                 class="character" alt=""/>
+                        </div>
+                    </a>
+
+                    <a href="{{ url_for('quiz', universe='marvel', email=email) }}" alt="Marvel">
+                        <div class="card">
+                            <div class="wrapper">
+                                <img src="https://ggayane.github.io/css-experiments/cards/force_mage-cover.jpg"
+                                     class="cover-image" alt=""/>
+                            </div>
+                            <img src="https://ggayane.github.io/css-experiments/cards/force_mage-title.png"
+                                 class="title" alt=""/>
+                            <img src="https://ggayane.github.io/css-experiments/cards/force_mage-character.webp"
+                                 class="character" alt=""/>
+                        </div>
+                    </a>
+                </div>
+
             </div>
         </div>
-    </nav>
 
-    <div class="container mt-4">
-        <div class="row">
-            <!-- Quizzes -->
-            <div class="col-lg-8">
-                <div class="quizzes">
-                    <h1>Quizzes Available</h1>
-                    <a href="{{ url_for('quiz', universe='dc') }}">DC Extended Universe</a>
-                    <a href="{{ url_for('quiz', universe='marvel') }}">Marvel Universe</a>
-                </div>
-            </div>
-
-            <!-- History Scores -->
-            <div class="col-lg-4">
-                <div class="history-scores">
-                    <h1>History Scores</h1>
-                    <!-- Add history scores component content here -->
-                </div>
+        <!-- History Scores -->
+        <div class="col-lg-4">
+            <div class="history-scores">
+                <h1>History Scores</h1>
+                <!-- Add history scores component content here -->
+                {% for score in user_scores %}
+                    <li>{{ score.universe }} Quiz - Score: {{ score.score }}</li>
+                {% endfor %}
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>

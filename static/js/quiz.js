@@ -14,6 +14,8 @@ let questionCount;
 let scoreCount = 0;
 let count = 11;
 let countdown;
+const userEmail = document.getElementById("userEmail").value;
+const userUniverse = document.getElementById("userUniverse").value;
 
 let questionsDiv = document.getElementById('my-div');
 let questions = questionsDiv.getAttribute('questions');
@@ -22,6 +24,24 @@ let questions = questionsDiv.getAttribute('questions');
 // const quizArray = questions
 const quizArray = JSON.parse(questions);
 console.log(quizArray)
+
+function storeUserScore(email, universe, score) {
+    $.ajax({
+        type: "POST",
+        url: "/store_score",
+        data: {
+            email: email,
+            universe: universe,
+            score: score
+        },
+        success: function(response) {
+            console.log("Score stored successfully!");
+        },
+        error: function(error) {
+            console.error("Error storing score:", error);
+        }
+    });
+}
 
 homeButton.addEventListener("click", () => {
    window.location.href="/home";
@@ -49,6 +69,7 @@ nextBtn.addEventListener(
             //user score
             userScore.innerHTML =
                 "Your score is " + scoreCount + " out of " + questionCount;
+            storeUserScore(userEmail, userUniverse, scoreCount);
         } else {
             //display questionCount
             countOfQuestion.innerHTML =

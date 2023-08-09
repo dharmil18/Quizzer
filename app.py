@@ -25,7 +25,9 @@ def hello_world():  # put application's code here
 @app.route('/home')
 def home():
     if 'email' in session:
-        return render_template('home.html', email=session['email'])
+        email = session['email']
+        user_scores = db.getUserScores(email)
+        return render_template('home.html', email=email, user_scores=user_scores)
     else:
         return redirect('login')
 
@@ -34,13 +36,25 @@ def home():
 @app.route('/quiz')
 def quiz():
     universe = request.args.get('universe')
+    email = request.args.get('email')
     questions = db.fetchQuestions(universe)
 
     questions = list(questions)
     random_questions = random.sample(questions, 5)
     json_data = json.dumps(random_questions)
 
-    return render_template('quiz.html', questions=json_data)
+    return render_template('quiz.html', questions=json_data, email=email, universe=universe)
+
+
+@app.route('/store_score', methods=['POST'])
+def store_score():
+    email = request.form.get('email')
+    universe = request.form.get('universe')
+    score = int(request.form.get('score'))
+
+    db.storeUserScore(email, universe, score)
+
+    return "Score stored successfully"  # You can return any response you want here
 
 
 @app.route('/login', methods=['GET'])

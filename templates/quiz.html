@@ -19,7 +19,7 @@
 <div id="display-container">
     <div class="header">
         <div class="number-of-count">
-            <span class="number-of-question">1 of 3 questions</span>
+            <span class="number-of-question"> 1 of 3 questions</span>
         </div>
         <div class="timer-div">
             <img src="https://uxwing.com/wp-content/themes/uxwing/download/time-and-date/stopwatch-icon.png"
@@ -29,7 +29,10 @@
     </div>
     <div id="container">
         <!-- questions and options will be displayed here -->
-        <div id="my-div" questions="{{questions}}"></div>
+        <div id="my-div" questions="{{ questions }}"></div>
+        <input type="hidden" id="userEmail" value="{{ email }}">
+        <input type="hidden" id="userUniverse" value="{{ universe }}">
+
     </div>
     <button id="next-button">Next</button>
 </div>
