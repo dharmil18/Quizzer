@@ -1,3 +1,4 @@
+
 :root {
     --card-height: 20rem;
     --card-width: calc(var(--card-height) / 1.5);
@@ -112,7 +113,6 @@
 
 /* Scores */
 
-
 .history-scores {
     max-width: 600px;
     margin: 0 auto;
@@ -163,4 +163,68 @@
 
 .history-scores li:hover .score {
     background-color: #555;
+}
+
+/* text highlight design */
+
+
+.titleWrapper {
+  position: relative;
+  margin: auto;
+  text-align: center;
+  height: 80px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.titleWrapper h1 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  line-height: 80px;
+  height: 80px;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  word-space: 4em;
+  letter-spacing: 0.05em;
+}
+
+.titleWrapper h1 span {
+  position: relative;
+  display: inline-block;
+  transform: translateY(100%);
+  transition: all 0.25s cubic-bezier(0.65, 0, 0.21, 1.47) 0s;
+}
+
+.titleWrapper.ready h1 span {
+  transform: translateY(0%);
+}
+
+.titleWrapper h1.first span {
+  position: relative;
+  z-index: 5;
+}
+
+.titleWrapper h1.second span {
+  position: relative;
+  z-index: 1;
+}
+
+.titleWrapper h1.first span:nth-of-type(1) {
+  transition-delay: 0.02s;
+}
+
+.titleWrapper h1.second span:nth-of-type(1) {
+  transition-delay: 0.08s;
+}
+
+/* ... (repeat transition-delay rules for other spans) ... */
+
+.titleWrapper.ready:hover h1.first span {
+  transform: translateY(-100%);
+}
+
+.titleWrapper.ready:hover h1.second span {
+  transform: translateY(-100%);
 }

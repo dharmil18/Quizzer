@@ -1,5 +1,6 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+from datetime import datetime
 
 uri = 'mongodb+srv://dcode:Tat1pet@cluster0.l5w5iei.mongodb.net/?retryWrites=true&w=majority'
 
@@ -51,8 +52,10 @@ def storeUserScore(email, universe, score):
     user_score = {
         "email": email,
         "universe": universe,
-        "score": score
+        "score": score,
+        "quizDate": datetime.today()
     }
+    print(datetime.today())
     db.scores.insert_one(user_score)
     return True
 

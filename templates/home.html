@@ -38,12 +38,12 @@
                     <a href="{{ url_for('quiz', universe='dc', email=email) }}" alt="DC">
                         <div class="card">
                             <div class="wrapper">
-                                <img src="https://cdn.wallpapersafari.com/36/65/JRvO27.jpg"
+                                <img src="https://e0.pxfuel.com/wallpapers/866/38/desktop-wallpaper-batman-batman-logo-dc-comics-minimalism-portrait-display-minimalist-portrait.jpg"
                                      class="cover-image" alt=""/>
                             </div>
-                            <img src="https://wallpapercave.com/dwp1x/wp2319913.jpg"
+                            <img src="{{ url_for('static', filename='images/bg.png') }}"
                                  class="title" alt=""/>
-                            <img src="https://c4.wallpaperflare.com/wallpaper/450/574/539/comics-justice-league-batman-bruce-wayne-wallpaper-preview.jpg"
+                            <img src="{{ url_for('static', filename='images/joker.png') }}"
                                  class="character" alt=""/>
                         </div>
                     </a>
@@ -51,12 +51,12 @@
                     <a href="{{ url_for('quiz', universe='marvel', email=email) }}" alt="Marvel">
                         <div class="card">
                             <div class="wrapper">
-                                <img src="https://ggayane.github.io/css-experiments/cards/force_mage-cover.jpg"
+                                <img src="https://cdn.statusqueen.com/mobilewallpaper/thumbnail/mobile_wallpaper4-457.jpg"
                                      class="cover-image" alt=""/>
                             </div>
-                            <img src="https://ggayane.github.io/css-experiments/cards/force_mage-title.png"
+                            <img src="{{ url_for('static', filename='images/title.png') }}"
                                  class="title" alt=""/>
-                            <img src="https://ggayane.github.io/css-experiments/cards/force_mage-character.webp"
+                            <img src="{{ url_for('static', filename='images/thanos.png') }}"
                                  class="character" alt=""/>
                         </div>
                     </a>
@@ -103,7 +103,11 @@
 <footer class="footer text-center py-4" style="background-color: #a2d2ff;">
     <div class="container">
         <p>&copy; 2023 Quizzer. All rights reserved.</p>
-        <p>Designed and developed by DDA.</p>
+        <p>Designed and Developed by</p>
+        <div class="titleWrapper">
+            <h1 class="first">DAD</h1>
+            <h1 class="second">JAVA DEVELOPERS</h1>
+        </div>
     </div>
 </footer>
 
@@ -111,5 +115,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
 </html>

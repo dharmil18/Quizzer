@@ -35,17 +35,17 @@ function storeUserScore(email, universe, score) {
             universe: universe,
             score: score
         },
-        success: function(response) {
+        success: function (response) {
             console.log("Score stored successfully!");
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error storing score:", error);
         }
     });
 }
 
 homeButton.addEventListener("click", () => {
-   window.location.href="/home";
+    window.location.href = "/home";
 });
 
 //Restart Quiz
@@ -67,6 +67,7 @@ nextBtn.addEventListener(
             //hide question container and display score
             displayContainer.classList.add("hide");
             scoreContainer.classList.remove("hide");
+            homeButton.classList.remove("hide");
             //user score
             userScore.innerHTML =
                 "Your score is " + scoreCount + " out of " + questionCount;

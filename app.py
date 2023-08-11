@@ -27,7 +27,16 @@ def home():
     if 'email' in session:
         email = session['email']
         user_scores = db.getUserScores(email)
-        return render_template('home.html', email=email, user_scores=user_scores)
+        
+        scores = []
+        i = 0
+
+        for score in user_scores:
+            if i == 5:
+                break
+            scores.append(score)
+            i += 1
+        return render_template('home.html', email=email, user_scores=scores)
     else:
         return redirect('login')
 
