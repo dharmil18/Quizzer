@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <span class="nav-link">{{ email }}</span>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -73,28 +76,18 @@
                 {% if user_scores %}
                     <ul>
                         {% for score in user_scores %}
-                            <li>{{ score.universe }} Quiz - Score: {{ score.score }}</li>
+                            <li>
+                                <span class="universe">{{ score.universe }} Quiz</span>
+                                <span class="score">Score: {{ score.score }}</span>
+                            </li>
                         {% endfor %}
                     </ul>
                 {% else %}
                     <p>No quizzes attempted yet.</p>
                 {% endif %}
             </div>
-
-            {#            <div class="history-scores">#}
-            {#                <h1 class="mb-4">History Scores</h1>#}
-            {#                <ul class="list-unstyled">#}
-            {#                    {% for score in user_scores %}#}
-            {#                        <li class="mb-2">#}
-            {#                            <span class="badge badge-primary">{{ score.universe }} Quiz</span>#}
-            {#                            <span class="badge badge-success ml-2">Score: {{ score.score }}</span>#}
-            {#                        </li>#}
-            {#                    {% endfor %}#}
-            {#                </ul>#}
-            {#            </div>#}
-
-
         </div>
+
     </div>
 </div>
 

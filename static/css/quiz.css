@@ -7,8 +7,10 @@
 
 body {
     height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-
 
 
 .start-screen,
@@ -30,14 +32,14 @@ button {
 }
 
 #start-button,
-#restart,#home {
+#restart, #home {
     font-size: 1.3em;
     padding: 0.5em 1.8em;
     border-radius: 0.2em;
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.4);
 }
 
-#restart,#home {
+#restart, #home {
     margin-top: 0.9em;
 }
 

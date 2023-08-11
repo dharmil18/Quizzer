@@ -19,7 +19,7 @@ logging.basicConfig(level=logging.DEBUG)
 def hello_world():  # put application's code here
     if not user_logged_in:
         return redirect('/login')
-    return 'Hello World!'
+    return '404'
 
 
 @app.route('/home')
@@ -199,7 +199,7 @@ def authenticate():
 
                     if bcrypt.checkpw(password.encode('utf-8'), dbPassword):
                         session['email'] = email
-                        return redirect('logged_in')
+                        return redirect('/home')
                     else:
                         db_error = 'Invalid username or password! Try again.'
                         return render_template('login.html', db_error=db_error,

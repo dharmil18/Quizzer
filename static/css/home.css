@@ -126,6 +126,7 @@
     font-size: 24px;
     margin-bottom: 15px;
     color: #333;
+    text-transform: uppercase;
 }
 
 .history-scores ul {
@@ -147,6 +148,7 @@
 .history-scores li .universe {
     font-weight: bold;
     flex: 1;
+    text-transform: uppercase;
 }
 
 .history-scores li .score {
