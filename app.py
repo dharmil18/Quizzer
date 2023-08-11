@@ -27,7 +27,7 @@ def home():
     if 'email' in session:
         email = session['email']
         user_scores = db.getUserScores(email)
-        
+
         scores = []
         i = 0
 
@@ -44,15 +44,19 @@ def home():
 # Route to handle the quiz
 @app.route('/quiz')
 def quiz():
-    universe = request.args.get('universe')
-    email = request.args.get('email')
-    questions = db.fetchQuestions(universe)
+    if 'email' in session:
+        email = session['email']
+        universe = request.args.get('universe')
+        email = request.args.get('email')
+        questions = db.fetchQuestions(universe)
 
-    questions = list(questions)
-    random_questions = random.sample(questions, 5)
-    json_data = json.dumps(random_questions)
+        questions = list(questions)
+        random_questions = random.sample(questions, 5)
+        json_data = json.dumps(random_questions)
 
-    return render_template('quiz.html', questions=json_data, email=email, universe=universe)
+        return render_template('quiz.html', questions=json_data, email=email, universe=universe)
+    else:
+        return redirect('login')
 
 
 @app.route('/store_score', methods=['POST'])
