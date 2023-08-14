@@ -47,7 +47,24 @@ def dashboard():
     if 'email' in session:
         email = session['email']
         scores = db.getUserScores(email)
-        return render_template('dashboard.html', email=email, user_scores=scores)
+
+        scores = list(scores)
+        # Extract scores from the data
+        score_values = [entry['score'] for entry in scores]
+
+        # Calculate highest score
+        highest_score = max(score_values)
+
+        # Calculate lowest score
+        lowest_score = min(score_values)
+
+        # Calculate average score
+        average_score = sum(score_values) / len(score_values)
+
+        sorted_scores = sorted(scores, key=lambda x: x['quizDateTime'], reverse=True)
+
+        return render_template('dashboard.html', email=email, user_scores=sorted_scores, highest_score=highest_score,
+                               lowest_score=lowest_score, average_score=average_score, numOfQuiz=len(score_values))
     else:
         return redirect('login')
 
