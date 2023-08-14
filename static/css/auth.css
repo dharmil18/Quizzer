@@ -29,13 +29,13 @@ body{
 }
 
 .wrapper .form-left{
-    background: #3786bd;
+    background: #28282B;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     padding: 20px 40px;
     position: relative;
     width: 100%;
-    color: #fff;
+    color: #FDFBF9;
 }
 
 .wrapper h2{
@@ -88,7 +88,7 @@ body{
 }
 
 .wrapper .form-right h2{
-    color: #3786bd;
+    color: #28282B;
 }
 
 .wrapper .form-right label{
@@ -179,38 +179,38 @@ body{
 
 .wrapper .register{
     padding: 12px;
-    background: #3786bd;
+    background: #28282B;
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 130px;
     border: none;
     margin: 6px 0 50px 0px;
     cursor: pointer;
-    color: #fff;
+    color: #FDFBF9;
     font-weight: 700;
     font-size: 15px;
 }
 
 .wrapper .register:hover{
-    background-color: #3785bde0;
+    background-color: #555555;
 }
 
 .wrapper .login{
     padding: 12px;
-    background: #3786bd;
+    background: #28282B;
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     width: 130px;
     border: none;
     margin: 6px 0 50px 0px;
     cursor: pointer;
-    color: #fff;
+    color: #FDFBF9;
     font-weight: 700;
     font-size: 15px;
 }
 
 .wrapper .login:hover{
-    background-color: #3785bde0;
+    background-color: #555555;
 }
 
 .wrapper a{
