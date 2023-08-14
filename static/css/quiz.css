@@ -100,8 +100,9 @@ button {
 #next-button {
     font-size: 1em;
     margin-top: 1.5em;
-    background-color: #8754ff;
-    color: #ffffff;
+    background-color: #28282B;
+    color: #FDFBF9;
+    font-weight: 500;
     padding: 0.7em 1.8em;
     border-radius: 0.3em;
     float: right;

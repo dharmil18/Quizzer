@@ -5,6 +5,7 @@ import json
 import logging
 import random
 from flask import Flask, render_template, request, redirect, session, url_for
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'sdakjndsahjgbdhgjvdhjvdjdsjkndasjbkjbkdhad'
@@ -74,8 +75,9 @@ def store_score():
     email = request.form.get('email')
     universe = request.form.get('universe')
     score = int(request.form.get('score'))
+    quizDateTime = datetime.now()
 
-    db.storeUserScore(email, universe, score)
+    db.storeUserScore(email, universe, score, quizDateTime)
 
     return "Score stored successfully"  # You can return any response you want here
 
