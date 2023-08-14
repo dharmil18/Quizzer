@@ -41,6 +41,16 @@ def home():
         return redirect('login')
 
 
+@app.route('/dashboard')
+def dashboard():
+    if 'email' in session:
+        email = session['email']
+        scores = db.getUserScores(email)
+        return render_template('dashboard.html', email=email, user_scores=scores)
+    else:
+        return redirect('login')
+
+
 # Route to handle the quiz
 @app.route('/quiz')
 def quiz():

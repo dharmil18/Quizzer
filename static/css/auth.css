@@ -9,10 +9,12 @@
 }
 
 body{
-    background: #00E5FF;
     min-height: 100vh;
     display: flex;
     align-items: center;
+    background-image: url('https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700530929.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .wrapper{

@@ -7,11 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navigation.css') }}">
 </head>
 
 <body>
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg" style="background-color: #a2d2ff;">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="#">Quizzer</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -21,10 +22,16 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <span class="nav-link">{{ email }}</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="nav-link logout" href="{{ url_for('logout') }}">Logout</a>
                 </li>
             </ul>
         </div>
@@ -37,7 +44,9 @@
         <div class="col-lg-8">
             <div class="quizzes">
                 <h1>Quizzes Available</h1>
+
                 <div class="quiz_container">
+
                     <a href="{{ url_for('quiz', universe='dc', email=email) }}" alt="DC">
                         <div class="card">
                             <div class="wrapper">
@@ -63,6 +72,37 @@
                                  class="character" alt=""/>
                         </div>
                     </a>
+
+                </div>
+
+                <!-- Coming Soon Quizzes -->
+                <h1>Coming Soon Quizzes</h1>
+                <div class="single-row">
+                    <div class="coming_soon_container">
+                        <div class="card">
+                            <div class="wrapper">
+                                <img src="https://wallpaperaccess.com/full/1660329.jpg"
+                                     class="cover-image" alt="Coming Soon"/>
+                            </div>
+                            <div class="title">Dragon Ball Super</div>
+                        </div>
+
+                        <div class="card">
+                            <div class="wrapper">
+                                <img src="https://4kwallpapers.com/images/wallpapers/fast-furious-9-vin-diesel-jordana-brewster-ludacris-7000x5808-561.jpg"
+                                     class="cover-image" alt="Coming Soon"/>
+                            </div>
+                            <div class="title">Fast And Furious</div>
+                        </div>
+
+                        <div class="card">
+                            <div class="wrapper">
+                                <img src="https://cellularnews.com/images/hd/god-of-war-1920X1080-hd34ixnaw7sqpbuj.jpeg"
+                                     class="cover-image" alt="Coming Soon"/>
+                            </div>
+                            <div class="title">God Of War</div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -93,7 +133,7 @@
 
 <br><br>
 <!-- Footer -->
-<footer class="footer text-center py-4" style="background-color: #a2d2ff;">
+<footer class="footer text-center py-4">
     <div class="container">
         <p>&copy; 2023 Quizzer. All rights reserved.</p>
         <p>Designed and Developed by</p>
