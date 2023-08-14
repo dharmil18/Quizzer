@@ -2,18 +2,20 @@
 
 /* Navbar styles */
 .navbar {
-    background-color: #2c3e50;
+    background-color: #28282B;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navbar-brand {
-    color: #3498db;
+    color: #FDFBF9;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 750;
 }
 
 .navbar-nav .nav-link {
-    color: #ecf0f1;
+    color: #FDFBF9;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 .navbar-nav .nav-link.logout {
@@ -36,8 +38,8 @@
 
 /* Footer styles */
 .footer {
-    background-color: #2c3e50;
-    color: white;
+    background-color: #28282B;
+    color: #FDFBF9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 20px 0;
 }

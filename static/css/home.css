@@ -13,6 +13,7 @@
     align-items: center;
 }
 
+
 .quiz_container .card {
     width: var(--card-width);
     height: var(--card-height);
@@ -25,6 +26,7 @@
     margin: 0 50px;
     border: none;
 }
+
 
 .quiz_container .cover-image {
     width: 100%;
@@ -125,6 +127,7 @@
     margin-top: 20px;
 }
 
+
 .single-row .quizzes h1 {
     margin-bottom: 20px;
     font-size: 24px;
@@ -174,6 +177,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 .history-scores h1 {
     font-size: 24px;
@@ -231,6 +235,7 @@
   width: 100%;
 }
 
+
 .titleWrapper h1 {
   font-size: 20px;
   margin: 0;
@@ -282,3 +287,71 @@
 .titleWrapper.ready:hover h1.second span {
   transform: translateY(-100%);
 }
+
+/*!*Media Queries*!*/
+/*!* Responsive layout adjustments for smaller screens *!*/
+/*@media screen and (max-width: 768px) {*/
+/*    .quiz_container {*/
+/*        width: 100%;*/
+/*        height: auto;*/
+/*        margin: 20px 0;*/
+/*        flex-direction: column;*/
+/*        align-items: center;*/
+/*    }*/
+
+/*    .quiz_container .card {*/
+/*        width: 80%;*/
+/*        height: auto;*/
+/*        margin: 20px 0;*/
+/*        padding: 10px;*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        flex-direction: column;*/
+/*        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);*/
+/*    }*/
+
+/*    .single-row .coming_soon_container {*/
+/*        grid-template-columns: repeat(1, 1fr);*/
+/*    }*/
+/*}*/
+
+/*!* Adjustments for even smaller screens *!*/
+/*@media screen and (max-width: 576px) {*/
+/*    .quiz_container .card {*/
+/*        width: 100%;*/
+/*        padding: 5px;*/
+/*        margin: 10px 0;*/
+/*    }*/
+
+/*    .single-row .coming_soon_container {*/
+/*        grid-template-columns: repeat(1, 1fr);*/
+/*        gap: 10px;*/
+/*    }*/
+/*}*/
+
+/*!* Responsive adjustments for larger screens *!*/
+/*@media screen and (min-width: 1200px) {*/
+/*    .quiz_container {*/
+/*        width: 70vw;*/
+/*    }*/
+
+/*    .quiz_container .card {*/
+/*        width: calc(var(--card-width) + 20%);*/
+/*    }*/
+/*}*/
+
+/*!* Responsive typography adjustments *!*/
+/*@media screen and (max-width: 768px) {*/
+/*    .history-scores h1 {*/
+/*        font-size: 20px;*/
+/*    }*/
+
+/*    .history-scores li .universe {*/
+/*        font-size: 14px;*/
+/*    }*/
+
+/*    .history-scores li .score {*/
+/*        padding: 3px 6px;*/
+/*    }*/
+/*}*/

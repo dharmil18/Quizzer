@@ -7,6 +7,7 @@ let displayContainer = document.getElementById("display-container");
 let scoreContainer = document.querySelector(".score-container");
 let restart = document.getElementById("restart");
 let userScore = document.getElementById("user-score");
+let userScoreMessage = document.getElementById("user-score-message");
 let startScreen = document.querySelector(".start-screen");
 let startButton = document.getElementById("start-button");
 const homeButton = document.getElementById("home");
@@ -68,9 +69,24 @@ nextBtn.addEventListener(
             displayContainer.classList.add("hide");
             scoreContainer.classList.remove("hide");
             homeButton.classList.remove("hide");
-            //user score
-            userScore.innerHTML =
-                "Your score is " + scoreCount + " out of " + questionCount;
+
+
+            let postQuizMessage = '';
+
+            if (scoreCount < 3) {
+                postQuizMessage = "Please Try Again!";
+            } else if (scoreCount === 3) {
+                postQuizMessage = "Good Job!";
+                restart.style.display = "none";
+            } else if (scoreCount === 4) {
+                postQuizMessage = "Excellent Work!";
+                restart.style.display = "none";
+            } else {
+                postQuizMessage = "You are a genius!";
+                restart.style.display = "none";
+            }
+            userScore.innerHTML = "Your score is: " + ((scoreCount / questionCount) * 100) + "%";
+            userScoreMessage.innerHTML = postQuizMessage;
             storeUserScore(userEmail, userUniverse, scoreCount);
         } else {
             //display questionCount
@@ -151,33 +167,57 @@ function quizCreator() {
 }
 
 //Checker Function to check if option is correct or not
+// function checker(userOption) {
+//     let userSolution = userOption.innerText;
+//     let question =
+//         document.getElementsByClassName("container-mid")[questionCount];
+//     let options = question.querySelectorAll(".option-div");
+//
+//     //if user clicked answer == correct option stored in object
+//     if (userSolution === quizArray[questionCount].correct_answer) {
+//         userOption.classList.add("correct");
+//         scoreCount++;
+//     } else {
+//         userOption.classList.add("incorrect");
+//         //For marking the correct option
+//         options.forEach((element) => {
+//             if (element.innerText === quizArray[questionCount].correct_answer) {
+//                 element.classList.add("correct");
+//             }
+//         });
+//     }
+//
+//     //clear interval(stop timer)
+//     clearInterval(countdown);
+//     //disable all options
+//     options.forEach((element) => {
+//         element.disabled = true;
+//     });
+// }
+
+// Checker Function to check if option is correct or not
 function checker(userOption) {
     let userSolution = userOption.innerText;
     let question =
         document.getElementsByClassName("container-mid")[questionCount];
     let options = question.querySelectorAll(".option-div");
 
-    //if user clicked answer == correct option stored in object
+    userOption.classList.add('selected');
+
+    // If user clicked answer == correct option stored in object
     if (userSolution === quizArray[questionCount].correct_answer) {
-        userOption.classList.add("correct");
+        // userOption.classList.add("correct");
         scoreCount++;
-    } else {
-        userOption.classList.add("incorrect");
-        //For marking the correct option
-        options.forEach((element) => {
-            if (element.innerText === quizArray[questionCount].correct_answer) {
-                element.classList.add("correct");
-            }
-        });
     }
 
-    //clear interval(stop timer)
+    // Clear interval (stop timer)
     clearInterval(countdown);
-    //disable all options
+    // Disable all options
     options.forEach((element) => {
         element.disabled = true;
     });
 }
+
 
 //initial setup
 function initial() {

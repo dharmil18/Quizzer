@@ -112,19 +112,20 @@ button {
     display: none;
 }
 
-.incorrect {
-    background-color: #ffdde0;
-    color: #d32f2f;
-    border-color: #d32f2f;
-}
-
-.correct {
-    background-color: #e7f6d5;
-    color: #689f38;
-    border-color: #689f38;
+.selected {
+    background-color: #28282B;
+    color: #FDFBF9 !important;
+    border-color: #FDFBF9;
 }
 
 #user-score {
     font-size: 1.5em;
-    color: #ffffff;
+    color: #FDFBF9;
+    font-weight: 500;
+}
+
+#user-score-message {
+    font-size: 1.5em;
+    color: #FDFBF9;
+    font-weight: 500;
 }
