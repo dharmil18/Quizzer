@@ -48,40 +48,81 @@
         <!-- Quizzes -->
         <div class="col-lg-8">
             <div class="quizzes">
-                <h1>Quizzes Available</h1>
+                <h1>Available Quizzes</h1>
+                <hr>
 
-                <div class="quiz_container">
+                {# Test Start #}
 
-                    <a href="{{ url_for('quiz', universe='dc', email=email) }}" alt="DC">
-                        <div class="card">
-                            <div class="wrapper">
-                                <img src="https://e0.pxfuel.com/wallpapers/866/38/desktop-wallpaper-batman-batman-logo-dc-comics-minimalism-portrait-display-minimalist-portrait.jpg"
-                                     class="cover-image" alt=""/>
-                            </div>
-                            <img src="{{ url_for('static', filename='images/bg.png') }}"
-                                 class="title" alt=""/>
-                            <img src="{{ url_for('static', filename='images/joker.png') }}"
-                                 class="character" alt=""/>
-                        </div>
+                <div class="container">
+
+    <div class="row">
+
+        <div class="col-md-4 col-sm-6">
+            <div class="product-grid2">
+                <div class="product-image2">
+                    <a href="{{ url_for('quiz', universe='dc', email=email) }}">
+                        <img class="pic-1" src="{{ url_for('static', filename='images/dc1.jpg') }}" alt="DC Universe">
+                        <img class="pic-2" src="{{ url_for('static', filename='images/dc2.jpg') }}" alt="DC Universe">
                     </a>
-
-                    <a href="{{ url_for('quiz', universe='marvel', email=email) }}" alt="Marvel">
-                        <div class="card">
-                            <div class="wrapper">
-                                <img src="https://cdn.statusqueen.com/mobilewallpaper/thumbnail/mobile_wallpaper4-457.jpg"
-                                     class="cover-image" alt=""/>
-                            </div>
-                            <img src="{{ url_for('static', filename='images/title.png') }}"
-                                 class="title" alt=""/>
-                            <img src="{{ url_for('static', filename='images/thanos.png') }}"
-                                 class="character" alt=""/>
-                        </div>
-                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="product-grid2">
+              <div class="product-image2">
+                  <a href="{{ url_for('quiz', universe='marvel', email=email) }}">
+                      <img class="pic-1" src="{{ url_for('static', filename='images/marvel1.jpg') }}" alt="Marvel">
+                      <img class="pic-2" src="{{ url_for('static', filename='images/marvel2.jpg') }}" alt="Marvel">
+                  </a>
 
                 </div>
+            </div>
+        </div>
 
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+                {# Test End #}
+
+
+{#                <div class="quiz_container row row-cols-1 row-cols-md-2 g-4">#}
+{##}
+{#                    <a href="{{ url_for('quiz', universe='dc', email=email) }}" alt="DC">#}
+{#                        <div class="card">#}
+{#                            <div class="wrapper">#}
+{#                                <img src="https://e0.pxfuel.com/wallpapers/866/38/desktop-wallpaper-batman-batman-logo-dc-comics-minimalism-portrait-display-minimalist-portrait.jpg"#}
+{#                                     class="cover-image row row-cols-1 row-cols-md-2 g-4" alt=""/>#}
+{#                            </div>#}
+{#                            <img src="{{ url_for('static', filename='images/joker.png') }}"#}
+{#                                 class="character" alt=""/>#}
+{#                        </div>#}
+{#                    </a>#}
+{##}
+{#                    <a href="{{ url_for('quiz', universe='marvel', email=email) }}" alt="Marvel">#}
+{#                        <div class="card">#}
+{#                            <div class="wrapper">#}
+{#                                <img src="https://cdn.statusqueen.com/mobilewallpaper/thumbnail/mobile_wallpaper4-457.jpg"#}
+{#                                     class="cover-image row row-cols-1 row-cols-md-2 g-4" alt=""/>#}
+{#                            </div>#}
+{#                            <img src="{{ url_for('static', filename='images/thanos.png') }}"#}
+{#                                 class="character" alt=""/>#}
+{#                        </div>#}
+{#                    </a>#}
+{##}
+{#                </div>#}
+
+                <br>
                 <!-- Coming Soon Quizzes -->
                 <h1>Coming Soon Quizzes</h1>
+                <hr>
                 <div class="single-row">
                     <div class="coming_soon_container">
                         <div class="card">
@@ -94,7 +135,7 @@
 
                         <div class="card">
                             <div class="wrapper">
-                                <img src="https://4kwallpapers.com/images/wallpapers/fast-furious-9-vin-diesel-jordana-brewster-ludacris-7000x5808-561.jpg"
+                                <img src="../static/images/fast-furious.jpg"
                                      class="cover-image" alt="Coming Soon"/>
                             </div>
                             <div class="title">Fast And Furious</div>
@@ -116,13 +157,20 @@
         <!-- History Scores -->
         <div class="col-lg-4">
             <div class="history-scores">
-                <h1>Last 5 Scores</h1>
+                <h1>Recent Scores</h1>
+                <hr>
                 <!-- Add history scores component content here -->
                 {% if user_scores %}
                     <ul>
                         {% for score in user_scores %}
                             <li>
-                                <span class="universe">{{ score.universe }} Quiz</span>
+                                <span class="universe">
+                                    {% if score.universe == 'dc' %}
+                                        {{ score.universe|upper }}
+                                    {% else %}
+                                        {{ score.universe|capitalize }}
+                                    {% endif %}
+                                    Quiz</span>
                                 <span class="score">Score: {{ score.score }}</span>
                             </li>
                         {% endfor %}
