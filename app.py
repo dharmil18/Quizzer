@@ -16,7 +16,6 @@ user_logged_in = False
 logging.basicConfig(level=logging.DEBUG)
 
 
-
 @app.route('/')
 def hello_world():  # put application's code here
     if not user_logged_in:
@@ -54,25 +53,31 @@ def dashboard():
         scores = db.getUserScores(email)
 
         scores = list(scores)
-        # Extract scores from the data
-        score_values = [entry['score'] for entry in scores]
 
-        # Calculate highest score
-        highest_score = max(score_values)
+        if len(scores) != 0:
 
-        # Calculate lowest score
-        lowest_score = min(score_values)
+            # Extract scores from the data
+            score_values = [entry['score'] for entry in scores]
 
-        # Calculate average score
-        average_score = sum(score_values) / len(score_values)
+            # Calculate highest score
+            highest_score = max(score_values)
 
-        sorted_scores = sorted(scores, key=lambda x: x['quizDateTime'], reverse=True)
+            # Calculate lowest score
+            lowest_score = min(score_values)
 
-        for score in sorted_scores:
-            print(score)
+            # Calculate average score
+            average_score = round((sum(score_values) / len(score_values)), 2)
 
-        return render_template('dashboard.html', email=email, user_scores=sorted_scores, highest_score=highest_score,
-                               lowest_score=lowest_score, average_score=average_score, numOfQuiz=len(score_values))
+            sorted_scores = sorted(scores, key=lambda x: x['quizDateTime'], reverse=True)
+
+            for score in sorted_scores:
+                print(score)
+
+            return render_template('dashboard.html', email=email, user_scores=sorted_scores,
+                                   highest_score=highest_score,
+                                   lowest_score=lowest_score, average_score=average_score, numOfQuiz=len(score_values))
+        else:
+            return render_template('dashboard.html', email=email)
     else:
         return redirect('login')
 
