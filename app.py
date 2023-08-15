@@ -16,11 +16,6 @@ user_logged_in = False
 logging.basicConfig(level=logging.DEBUG)
 
 
-# @app.template_filter('datetime')
-# def datetime_filter(value, pattern='%d/%m'):
-#     datetime_obj = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
-#     return datetime_obj.strftime(pattern)
-
 
 @app.route('/')
 def hello_world():  # put application's code here
@@ -35,15 +30,19 @@ def home():
         email = session['email']
         user_scores = db.getUserScores(email)
 
-        scores = []
+        scores = list(user_scores)
+
+        sorted_scores = sorted(scores, key=lambda x: x['quizDateTime'], reverse=True)
         i = 0
 
-        for score in user_scores:
-            if i == 5:
+        onlyScores = []
+
+        for score in sorted_scores:
+            if i == len(sorted_scores) or i == 5:
                 break
-            scores.append(score)
+            onlyScores.append(score)
             i += 1
-        return render_template('home.html', email=email, user_scores=scores)
+        return render_template('home.html', email=email, user_scores=onlyScores)
     else:
         return redirect('login')
 
@@ -68,6 +67,9 @@ def dashboard():
         average_score = sum(score_values) / len(score_values)
 
         sorted_scores = sorted(scores, key=lambda x: x['quizDateTime'], reverse=True)
+
+        for score in sorted_scores:
+            print(score)
 
         return render_template('dashboard.html', email=email, user_scores=sorted_scores, highest_score=highest_score,
                                lowest_score=lowest_score, average_score=average_score, numOfQuiz=len(score_values))
@@ -98,7 +100,7 @@ def store_score():
     email = request.form.get('email')
     universe = request.form.get('universe')
     score = int(request.form.get('score'))
-    quizDateTime = datetime.strptime(request.form.get('quizDateTime'), "%Y-%m-%dT%H:%M:%S.%fZ")
+    quizDateTime = datetime.now()
 
     db.storeUserScore(email, universe, score, quizDateTime)
 
