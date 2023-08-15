@@ -121,6 +121,8 @@
     <td class="align-middle">{{ (score.score / 5) * 100 }}%</td>
             <td class="align-middle">{{ score.quizDateTime.strftime('%d/%m') }}</td>
 {#        <td class="align-middle">{{ score.quizDateTime.strftime('%I:%M %p') }}</td>#}
+{#  <td class="align-middle">{{ score.quizDateTime|datetime('%d/%m') }}</td>#}
+{#<td class="align-middle">{{ score.quizDateTime|datetime('%H:%M') }}</td>#}
   <td class="align-middle">{{ score.quizDateTime.strftime('%H:%M') }}</td>
 
   </tr>

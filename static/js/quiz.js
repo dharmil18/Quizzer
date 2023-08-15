@@ -27,14 +27,15 @@ const quizArray = JSON.parse(questions);
 console.log(quizArray)
 
 
-function storeUserScore(email, universe, score) {
+function storeUserScore(email, universe, score, quizDateTime) {
     $.ajax({
         type: "POST",
         url: "/store_score",
         data: {
             email: email,
             universe: universe,
-            score: score
+            score: score,
+            quizDateTime: quizDateTime
         },
         success: function (response) {
             console.log("Score stored successfully!");
@@ -87,7 +88,10 @@ nextBtn.addEventListener(
             }
             userScore.innerHTML = "Your score is: " + ((scoreCount / questionCount) * 100) + "%";
             userScoreMessage.innerHTML = postQuizMessage;
-            storeUserScore(userEmail, userUniverse, scoreCount);
+
+            let quizDateTime = new Date().toISOString();
+            console.log(quizDateTime)
+            storeUserScore(userEmail, userUniverse, scoreCount, quizDateTime);
         } else {
             //display questionCount
             countOfQuestion.innerHTML =

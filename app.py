@@ -16,6 +16,12 @@ user_logged_in = False
 logging.basicConfig(level=logging.DEBUG)
 
 
+# @app.template_filter('datetime')
+# def datetime_filter(value, pattern='%d/%m'):
+#     datetime_obj = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%fZ')
+#     return datetime_obj.strftime(pattern)
+
+
 @app.route('/')
 def hello_world():  # put application's code here
     if not user_logged_in:
@@ -92,7 +98,7 @@ def store_score():
     email = request.form.get('email')
     universe = request.form.get('universe')
     score = int(request.form.get('score'))
-    quizDateTime = datetime.now()
+    quizDateTime = datetime.strptime(request.form.get('quizDateTime'), "%Y-%m-%dT%H:%M:%S.%fZ")
 
     db.storeUserScore(email, universe, score, quizDateTime)
 
