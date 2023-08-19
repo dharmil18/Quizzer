@@ -18,6 +18,18 @@ logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
 def hello_world():  # put application's code here
+    """
+    Route for the home page.
+
+    This function checks if a user is logged in. If the user is not logged in,
+    it redirects them to the login page. If the user is logged in, it returns
+    a '404' response.
+
+    Returns:
+        str or redirect:
+        Returns '404' if the user is logged in, otherwise
+        redirects to the '/login' page.
+    """
     if not user_logged_in:
         return redirect('/login')
     return '404'
@@ -25,6 +37,21 @@ def hello_world():  # put application's code here
 
 @app.route('/home')
 def home():
+    """
+    Route for the home page.
+
+    This function checks if a user is logged in by verifying if the 'email'
+    key is present in the session. If the user is logged in, it retrieves
+    the user's scores from the database, sorts them by 'quizDateTime' in
+    descending order, and selects the top 5 scores to display on the home page.
+    It then renders the 'home.html' template, passing the user's email and
+    the selected scores as context.
+
+    Returns:
+        str or redirect:
+        Renders the 'home.html' template with user information and scores if the user is logged in,
+        otherwise redirects to the 'login' page.
+    """
     if 'email' in session:
         email = session['email']
         user_scores = db.getUserScores(email)
@@ -48,6 +75,23 @@ def home():
 
 @app.route('/dashboard')
 def dashboard():
+    """
+    Route for the dashboard page.
+
+    This function checks if a user is logged in by verifying if the 'email'
+    key is present in the session. If the user is logged in, it retrieves
+    the user's scores from the database. It then calculates various statistics
+    including the highest score, lowest score, average score, and the number of quizzes
+    taken. It also sorts the scores by 'quizDateTime' in descending order and renders
+    the 'dashboard.html' template, passing user information and calculated statistics
+    as context.
+
+    Returns:
+        str or redirect:
+        Renders the 'dashboard.html' template with user information and
+        calculated statistics if the user is logged in, otherwise redirects to the 'login'
+        page.
+    """
     if 'email' in session:
         email = session['email']
         scores = db.getUserScores(email)
@@ -85,6 +129,23 @@ def dashboard():
 # Route to handle the quiz
 @app.route('/quiz')
 def quiz():
+    """
+    Route for the quiz page.
+
+    This function checks if a user is logged in by verifying if the 'email'
+    key is present in the session. If the user is logged in, it retrieves
+    a selected 'universe' and 'email' from the request arguments, fetches
+    a set of questions related to the specified universe from the database,
+    selects 5 random questions from the retrieved set, and converts them to
+    JSON format. Finally, it renders the 'quiz.html' template, passing the
+    JSON-encoded questions, user's email, and selected universe as context.
+
+    Returns:
+        str or redirect:
+        Renders the 'quiz.html' template with the selected
+        questions, user information, and universe if the user is logged in,
+        otherwise redirects to the 'login' page.
+    """
     if 'email' in session:
         email = session['email']
         universe = request.args.get('universe')
@@ -102,6 +163,18 @@ def quiz():
 
 @app.route('/store_score', methods=['POST'])
 def store_score():
+    """
+    Route for storing a user's quiz score.
+
+    This function handles POST requests to store a user's quiz score in the database.
+    It retrieves the user's email, selected universe, quiz score, and current date and time
+    from the form data sent with the request. It then calls the 'storeUserScore' function
+    from the database module to store the score information. Finally, it returns a response
+    indicating that the score has been stored successfully.
+
+    Returns:
+        str: A message indicating that the score has been stored successfully.
+    """
     email = request.form.get('email')
     universe = request.form.get('universe')
     score = int(request.form.get('score'))
@@ -114,16 +187,49 @@ def store_score():
 
 @app.route('/login', methods=['GET'])
 def login():
+    """
+    Route for displaying the login page.
+
+    This function handles GET requests to display the login page. It renders
+    the 'login.html' template, allowing users to log in.
+
+    Returns:
+        str: The rendered login page.
+    """
     return render_template('login.html')
 
 
 @app.route('/signup', methods=['GET'])
 def signup():
+    """
+     Route for displaying the signup page.
+
+     This function handles GET requests to display the signup page. It renders
+     the 'signup.html' template, allowing users to sign up for the application.
+
+     Returns:
+         str: The rendered signup page.
+     """
     return render_template('signup.html')
 
 
 @app.route('/register', methods=['POST'])
 def register():
+    """
+    Route for user registration.
+
+    This function handles POST requests for user registration. It performs form validation,
+    checking the first name, last name, email, and password fields for validity. If there
+    are any validation errors, it returns the 'signup.html' template with error messages.
+    If the provided email already exists in the database, it displays an error message.
+    If registration is successful, it hashes the user's password, stores the user's information
+    in the database, and redirects the user to the login page.
+
+    Returns:
+        str or redirect:
+        Renders the 'signup.html' template with error messages or redirects
+        to the login page upon successful registration.
+    """
     if "email" in session:
         return redirect(url_for("login"))
     if request.method == 'POST':
@@ -211,6 +317,19 @@ def register():
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
+    """
+     Route for user authentication.
+
+     This function handles POST requests for user authentication. It performs form validation,
+     checking the email and password fields for validity. If there are any validation errors,
+     it returns the 'login.html' template with error messages. If authentication is successful,
+     it sets the user's email in the session and redirects the user to the home page.
+
+     Returns:
+         str or redirect:
+         Renders the 'login.html' template with error messages or redirects
+         to the home page upon successful authentication.
+     """
     if "email" in session:
         return render_template('home.html', email=session['email'])
     if request.method == 'POST':
@@ -262,6 +381,19 @@ def authenticate():
 
 @app.route('/logged_in')
 def logged_in():
+    """
+    Route for checking if a user is logged in.
+
+    This function checks if a user is logged in by verifying if the 'email' key is present
+    in the session. If the user is logged in, it retrieves the user's email and renders
+    the 'home.html' template with the email as context. If the user is not logged in,
+    it redirects them to the login page.
+
+    Returns:
+        str or redirect:
+        Renders the 'home.html' template with the user's email if the user
+        is logged in, otherwise redirects to the login page.
+    """
     if 'email' in session:
         email = session['email']
         return render_template('home.html', email=email)
@@ -272,6 +404,19 @@ def logged_in():
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
+    """
+     Route for user logout.
+
+     This function handles GET and POST requests for user logout. If the user is currently
+     logged in (indicated by the presence of the 'email' key in the session), it removes
+     the 'email' key from the session, effectively logging the user out, and then renders
+     the 'login.html' template. If the user is not logged in, it still renders the 'login.html'
+     template.
+
+     Returns:
+         str:
+         Renders the 'login.html' template, regardless of the user's login status.
+     """
     if "email" in session:
         session.pop("email", None)
         return render_template("login.html")
